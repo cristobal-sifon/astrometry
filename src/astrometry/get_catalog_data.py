@@ -20,7 +20,7 @@ import pandas as pd
 # from . import settings as s
 
 
-def get_GAIA_data(coord, radius):
+def get_GAIA_data(coord, radius, max_sources=1000):
     """Query Gaia database.
 
     Parameters
@@ -36,7 +36,8 @@ def get_GAIA_data(coord, radius):
         table with the objects including the following info: ra (deg), ra_error (milliarcsec), dec (deg), dec_error (milliarcsec), mag
 
     """
-    j = Gaia.cone_search_async(coord, radius)
+    Gaia.ROW_LIMIT = max_sources
+    j = Gaia.cone_search_async(coord, radius=radius)
     r = j.get_results()
     # r.pprint()
     # r.show_in_browser()
