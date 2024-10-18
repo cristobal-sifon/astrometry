@@ -31,6 +31,7 @@ from photutils.detection import DAOStarFinder
 from . import get_catalog_data as query
 from . import get_transformation as register
 from . import settings as s
+from . import __version__
 
 
 def determine_if_fit_converged(
@@ -345,6 +346,8 @@ def read_additional_info_from_header(
                 fov_radius = (x_size / 2 + y_size / 2) / np.sqrt(
                     2
                 )  # try to get corners
+                # fov_radius = max(
+                #     fov_radius, (x_size / 2 + y_size / 2) / np.sqrt(2)
                 PIXSCALE_UNCLEAR = True
 
     if np.array_equal(wcsprm.crpix, [0, 0]):
@@ -620,7 +623,7 @@ def parseArguments():
 
 def main():
     """Perform astrometry for the given file."""
-    print("Program version: 1.5")
+    print(f"Program version: {__version__}")
     StartTime = datetime.now()
     args = parseArguments()
 
